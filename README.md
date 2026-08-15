@@ -9,10 +9,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/shivanshSWE-cmd/LinkGuard/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-00d4ff?style=flat-square" alt="License"></a>
+  <a href="https://github.com/shivanshSWE-cmd/LinkGuard/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/Release-v1.0.0-10b981?style=flat-square&logo=github" alt="Release v1.0.0"></a>
+  <a href="https://github.com/shivanshSWE-cmd/LinkGuard/releases"><img src="https://img.shields.io/badge/Installable-Releases-00d4ff?style=flat-square&logo=github" alt="Installable Releases"></a>
   <a href="https://github.com/shivanshSWE-cmd/LinkGuard"><img src="https://img.shields.io/github/repo-size/shivanshSWE-cmd/LinkGuard?style=flat-square&color=8b5cf6" alt="Code Size"></a>
-  <img src="https://img.shields.io/badge/version-v1.0.0-10b981?style=flat-square" alt="Version">
-  <img src="https://img.shields.io/badge/PWA-Installable-00d4ff?style=flat-square" alt="PWA Ready">
   <a href="https://shivanshswe-cmd.github.io/LinkGuard/"><img src="https://img.shields.io/badge/Live_App-shivanshswe--cmd.github.io%2FLinkGuard-8b5cf6?style=flat-square&logo=github" alt="Live App"></a>
 </p>
 
@@ -20,7 +19,15 @@
 
 ## 🧐 What is LinkGuard?
 
-**LinkGuard** is an open-source, privacy-first web application designed to inspect, clean, unshorten, and analyze web links before you open them. Inspired by the architecture of Android's [URLCheck](https://github.com/TrianguloY/URLCheck), LinkGuard acts as a security shield against tracking parameters, deceptive short links, malicious redirects, and phishing threats.
+**LinkGuard** is an open-source, privacy-first web application designed to inspect, clean, unshorten, and analyze web links before you open them. LinkGuard acts as a security shield against tracking parameters, deceptive short links, malicious redirects, and phishing threats.
+
+---
+
+## 📦 Releases & Assets
+
+Click below to view release assets, source code archives (`.zip`, `.tar.gz`), and app release builds:
+
+👉 **[View LinkGuard Releases & Assets](https://github.com/shivanshSWE-cmd/LinkGuard/releases/tag/v1.0.0)**
 
 ---
 
@@ -80,9 +87,3 @@ LinkGuard is a fully compliant Progressive Web App. You can install it on your d
 
 **Shivansh Mishra**
 - GitHub: [@shivanshSWE-cmd](https://github.com/shivanshSWE-cmd)
-
----
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information. Inspired by [TrianguloY/URLCheck](https://github.com/TrianguloY/URLCheck).
