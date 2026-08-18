@@ -220,37 +220,58 @@ body::before {
 .checkphish-nav-tabs {
   display: flex;
   align-items: center;
-  gap: 2.25rem;
+  gap: 0.65rem;
   margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-card);
   padding-bottom: 0.75rem;
   overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.checkphish-nav-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-tab-item {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-size: 0.95rem;
+  gap: 0.5rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-muted);
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 0.85rem;
   cursor: pointer;
   position: relative;
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
   white-space: nowrap;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+}
+
+.nav-tab-item * {
+  pointer-events: none;
+}
+
+.nav-tab-item:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .nav-tab-item.active {
   color: var(--accent-cyan);
+  background: rgba(0, 212, 255, 0.08);
+  border-color: var(--border-active);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.15);
 }
 
 .nav-tab-item.active::after {
   content: '';
   position: absolute;
-  bottom: -0.75rem;
-  left: 0;
-  right: 0;
+  bottom: -0.85rem;
+  left: 15%;
+  right: 15%;
   height: 3px;
   background: var(--accent-cyan);
   border-radius: 99px;
@@ -910,10 +931,10 @@ button {
 }
 
 /* Compact Mode vs Power Mode logic */
-body.mode-compact #statusCheckerModule,
-body.mode-compact #patternCheckerModule,
-body.mode-compact #historyModule {
-  display: none !important;
+body.mode-compact #statusCheckerModule:not(.active-tab-target),
+body.mode-compact #patternCheckerModule:not(.active-tab-target),
+body.mode-compact #historyModule:not(.active-tab-target) {
+  display: none;
 }
 
 .settings-hint {

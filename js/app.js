@@ -424,6 +424,45 @@ class URLCheckApp {
         }
       });
     }
+
+    // Navigation tool tabs handler
+    const toolTabsBar = document.getElementById('toolTabsBar');
+    if (toolTabsBar) {
+      toolTabsBar.addEventListener('click', (e) => {
+        const item = e.target.closest('.nav-tab-item');
+        if (!item) return;
+        e.preventDefault();
+        const target = item.dataset.tab;
+        this.switchTab(target);
+      });
+    }
+
+    // Default to active tab
+    const activeTab = document.querySelector('#toolTabsBar .nav-tab-item.active')?.dataset.tab || 'all';
+    this.switchTab(activeTab);
+  }
+
+  switchTab(target) {
+    if (!target) target = 'all';
+    this.currentTab = target;
+
+    document.querySelectorAll('#toolTabsBar .nav-tab-item').forEach(t => {
+      t.classList.toggle('active', t.dataset.tab === target);
+    });
+
+    const allCards = document.querySelectorAll('.module-card');
+
+    allCards.forEach(card => {
+      const modId = card.dataset.module;
+      if (target === 'all' || modId === target) {
+        card.style.setProperty('display', 'block', 'important');
+        card.classList.remove('collapsed');
+        const body = card.querySelector('.module-body');
+        if (body) body.style.setProperty('display', 'block', 'important');
+      } else {
+        card.style.setProperty('display', 'none', 'important');
+      }
+    });
   }
 
   setMode(mode) {
@@ -645,11 +684,6 @@ class URLCheckApp {
 
   loadSettings() {
     const settings = Storage.getModuleSettings();
-    // Apply module visibility
-    Object.entries(settings.enabled).forEach(([moduleId, isEnabled]) => {
-      const card = document.querySelector(`[data-module="${moduleId}"]`);
-      if (card) card.style.display = isEnabled ? '' : 'none';
-    });
     // Apply module order
     const container = document.getElementById('modulesContainer');
     if (container) {
@@ -658,12 +692,8 @@ class URLCheckApp {
         if (card) container.appendChild(card);
       });
     }
-    // Load VT API key
-    const vtKey = Storage.getApiKey('virustotal');
-    if (vtKey) {
-      const vtInput = document.getElementById('vtApiKey');
-      if (vtInput) vtInput.value = vtKey;
-    }
+    // Re-apply current tab selection cleanly
+    this.switchTab(this.currentTab || 'all');
   }
 
   exportSettings() {
