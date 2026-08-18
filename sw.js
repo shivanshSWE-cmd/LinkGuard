@@ -1,4 +1,4 @@
-const CACHE_NAME = 'linkguard-v1';
+const CACHE_NAME = 'linkguard-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -18,10 +18,10 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (e) => {
+  self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', (e) => {
@@ -39,6 +39,18 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+
+  // Network-first for index.html & HTML requests so updates show instantly
+  if (e.request.mode === 'navigate' || e.request.url.endsWith('index.html')) {
+    e.respondWith(
+      fetch(e.request).then((networkResponse) => {
+        const clone = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
+        return networkResponse;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
   
   e.respondWith(
     caches.match(e.request).then((cached) => {
