@@ -1,4 +1,4 @@
-const CACHE_NAME = 'linkguard-v8';
+const CACHE_NAME = 'linkguard-v9';
 const ASSETS = [
   './',
   './index.html',
@@ -40,27 +40,14 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
 
-  // Network-first for index.html & HTML requests so updates show instantly
-  if (e.request.mode === 'navigate' || e.request.url.endsWith('index.html')) {
-    e.respondWith(
-      fetch(e.request).then((networkResponse) => {
+  // Network-first strategy for ALL local assets so updates reflect immediately
+  e.respondWith(
+    fetch(e.request).then((networkResponse) => {
+      if (networkResponse.status === 200) {
         const clone = networkResponse.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
-        return networkResponse;
-      }).catch(() => caches.match(e.request))
-    );
-    return;
-  }
-  
-  e.respondWith(
-    caches.match(e.request).then((cached) => {
-      return cached || fetch(e.request).then((response) => {
-        if (response.status === 200 && response.type === 'basic') {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
-        }
-        return response;
-      }).catch(() => cached);
-    })
+      }
+      return networkResponse;
+    }).catch(() => caches.match(e.request))
   );
 });
