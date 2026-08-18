@@ -28,6 +28,28 @@
   --font-family: 'Inter', -apple-system, sans-serif;
 }
 
+/* Theme Presets */
+html[data-theme="emerald"] {
+  --accent-cyan: #10b981;
+  --accent-violet: #059669;
+  --border-active: rgba(16, 185, 129, 0.4);
+  --gradient-accent: linear-gradient(135deg, #10b981, #059669);
+}
+
+html[data-theme="solar"] {
+  --accent-cyan: #f59e0b;
+  --accent-violet: #f97316;
+  --border-active: rgba(245, 158, 11, 0.4);
+  --gradient-accent: linear-gradient(135deg, #f59e0b, #f97316);
+}
+
+html[data-theme="monochrome"] {
+  --accent-cyan: #ffffff;
+  --accent-violet: #94a3b8;
+  --border-active: rgba(255, 255, 255, 0.4);
+  --gradient-accent: linear-gradient(135deg, #ffffff, #64748b);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -132,6 +154,39 @@ body::before {
   border-left: 1px solid var(--border-card);
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mode-toggle-group {
+  display: flex;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--glass-border);
+  padding: 0.2rem;
+  border-radius: 99px;
+}
+
+.mode-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.mode-btn.active {
+  background: var(--glass-bg);
+  color: var(--accent-cyan);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .settings-btn {
   background: none;
   border: none;
@@ -161,40 +216,136 @@ body::before {
   gap: 1.5rem;
 }
 
-/* URL Input Section */
+/* CheckPhish Navigation Tabs Bar */
+.checkphish-nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 0.75rem;
+  overflow-x: auto;
+}
+
+.nav-tab-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0.5rem 0.25rem;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-tab-item.active {
+  color: var(--accent-cyan);
+}
+
+.nav-tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -0.75rem;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-cyan);
+  border-radius: 99px;
+  box-shadow: 0 0 12px var(--accent-cyan);
+}
+
+.nav-tab-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pill-badge-new {
+  background: rgba(16, 185, 129, 0.18);
+  color: var(--accent-green);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 99px;
+}
+
+/* URL Input Section (CheckPhish Style) */
 .url-input-section {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-lg);
-  padding: 1rem;
+  padding: 1.5rem;
   box-shadow: var(--glass-shadow);
   backdrop-filter: blur(8px);
 }
 
-.input-wrapper {
-  position: relative;
+.checkphish-input-group {
+  display: flex;
+  align-items: stretch;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.checkphish-input-group:focus-within {
+  border-color: var(--border-active);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.25);
+}
+
+.checkphish-input-wrapper {
+  flex: 1;
   display: flex;
   align-items: center;
+  padding: 0.25rem 1rem;
 }
 
-.input-icon {
-  position: absolute;
-  left: 1rem;
-  color: var(--text-muted);
-  display: flex;
-}
-
-#urlInput {
+.checkphish-input-wrapper input {
   width: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 1rem 6rem 1rem 3rem;
-  font-size: 1.1rem;
-  color: var(--text-primary);
-  font-family: monospace;
-  transition: var(--transition-normal);
+  background: none;
+  border: none;
   outline: none;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  font-family: var(--font-family);
+  padding: 0.75rem 0.5rem;
+}
+
+.input-inner-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scan-submit-btn {
+  background: var(--gradient-accent);
+  color: #ffffff;
+  border: none;
+  padding: 0 2.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+}
+
+.scan-submit-btn:hover {
+  opacity: 0.92;
+}
+
+.checkphish-description {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 #urlInput:focus {
@@ -708,6 +859,61 @@ button {
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--accent-cyan);
+}
+
+/* Theme Selector Grid */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.theme-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.theme-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.theme-card.active {
+  border-color: var(--accent-cyan);
+  background: rgba(0, 212, 255, 0.08);
+}
+
+.theme-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.theme-dot.cyber { background: #00d4ff; box-shadow: 0 0 8px #00d4ff; }
+.theme-dot.emerald { background: #10b981; box-shadow: 0 0 8px #10b981; }
+.theme-dot.solar { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+.theme-dot.monochrome { background: #ffffff; box-shadow: 0 0 8px #ffffff; }
+
+.theme-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Compact Mode vs Power Mode logic */
+body.mode-compact #statusCheckerModule,
+body.mode-compact #patternCheckerModule,
+body.mode-compact #historyModule {
+  display: none !important;
 }
 
 .settings-hint {

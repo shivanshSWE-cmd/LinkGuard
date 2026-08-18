@@ -19,6 +19,7 @@ class URLCheckApp {
     this.initModules();
     this.initUI();
     this.initEventListeners();
+    this.initModeAndTheme();
     this.loadSettings();
     this.showToast('LinkGuard ready!', 'info');
   }
@@ -151,22 +152,7 @@ class URLCheckApp {
       autoFixBtn.addEventListener('click', () => this.autoFixUrl());
     }
 
-    // QR Code modal
-    const qrBtn = document.getElementById('qrBtn');
-    const closeQrBtn = document.getElementById('closeQrBtn');
-    const qrOverlay = document.getElementById('qrOverlay');
 
-    if (qrBtn) {
-      qrBtn.addEventListener('click', () => this.openQrModal());
-    }
-    if (closeQrBtn) {
-      closeQrBtn.addEventListener('click', () => this.closeQrModal());
-    }
-    if (qrOverlay) {
-      qrOverlay.addEventListener('click', (e) => {
-        if (e.target === qrOverlay) this.closeQrModal();
-      });
-    }
     if (undoBtn) undoBtn.addEventListener('click', () => this.undo());
     if (redoBtn) redoBtn.addEventListener('click', () => this.redo());
     if (clearHistoryBtn) clearHistoryBtn.addEventListener('click', () => this.clearChangeHistory());
@@ -406,25 +392,61 @@ class URLCheckApp {
     }
   }
 
-  openQrModal() {
-    const overlay = document.getElementById('qrOverlay');
-    const box = document.getElementById('qrCodeBox');
-    const preview = document.getElementById('qrUrlPreview');
-    if (!this.currentUrl || !overlay) return;
+  initModeAndTheme() {
+    // Mode
+    const mode = Storage.get('view_mode', 'compact');
+    this.setMode(mode);
 
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(this.currentUrl)}`;
-    if (box) {
-      box.innerHTML = `<img src="${qrUrl}" alt="QR Code" width="180" height="180">`;
+    const compactBtn = document.getElementById('compactModeBtn');
+    const powerBtn = document.getElementById('powerModeBtn');
+
+    if (compactBtn) compactBtn.addEventListener('click', () => this.setMode('compact'));
+    if (powerBtn) powerBtn.addEventListener('click', () => this.setMode('power'));
+
+    // Themes
+    const theme = Storage.get('theme', 'cyber');
+    this.setTheme(theme);
+
+    document.querySelectorAll('.theme-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const selectedTheme = card.dataset.theme;
+        this.setTheme(selectedTheme);
+      });
+    });
+
+    // Scan Submit button (CheckPhish style)
+    const scanBtn = document.getElementById('scanSubmitBtn');
+    if (scanBtn) {
+      scanBtn.addEventListener('click', () => {
+        const input = document.getElementById('urlInput');
+        if (input && input.value) {
+          this.onUrlChange(input.value);
+        }
+      });
     }
-    if (preview) {
-      preview.textContent = this.currentUrl;
-    }
-    overlay.classList.add('active');
   }
 
-  closeQrModal() {
-    const overlay = document.getElementById('qrOverlay');
-    if (overlay) overlay.classList.remove('active');
+  setMode(mode) {
+    document.body.className = mode === 'compact' ? 'mode-compact' : 'mode-power';
+    document.documentElement.setAttribute('data-mode', mode);
+    Storage.set('view_mode', mode);
+
+    const compactBtn = document.getElementById('compactModeBtn');
+    const powerBtn = document.getElementById('powerModeBtn');
+
+    if (compactBtn) compactBtn.classList.toggle('active', mode === 'compact');
+    if (powerBtn) powerBtn.classList.toggle('active', mode === 'power');
+
+    this.showToast(`Switched to ${mode === 'compact' ? 'Compact' : 'Power-User'} Mode`, 'info');
+  }
+
+  setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    Storage.set('theme', theme);
+
+    document.querySelectorAll('.theme-card').forEach(card => {
+      card.classList.toggle('active', card.dataset.theme === theme);
+    });
   }
 
   updateUrl(newUrl, reason) {
