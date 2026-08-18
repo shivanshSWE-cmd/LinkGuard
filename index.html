@@ -48,8 +48,31 @@
         <button class="clear-btn" id="clearBtn" title="Clear">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
+      <div class="sample-urls">
+        <span class="sample-label">Try sample:</span>
+        <button class="sample-pill" data-url="https://example.com/product?utm_source=facebook&utm_medium=cpc&fbclid=IwAR123456&ref=campaign_12">🛒 Tracking Link</button>
+        <button class="sample-pill" data-url="https://bit.ly/3xXyZ99">🔗 Short Link</button>
+        <button class="sample-pill" data-url="http://insecure-website.com/login?session_id=98765">⚠️ Insecure HTTP</button>
       </div>
       <div class="input-status" id="inputStatus"></div>
+
+      <!-- Hero Safety & Privacy Score Card -->
+      <div class="hero-score-card" id="heroScoreCard" style="display: none;">
+        <div class="score-radial-wrapper">
+          <div class="score-radial" id="scoreRadial">
+            <span class="score-value" id="scoreValue">100%</span>
+          </div>
+          <div class="score-meta">
+            <h3 class="score-title" id="scoreTitle">Clean & Secure</h3>
+            <p class="score-subtitle" id="scoreSubtitle">No privacy or security risks detected</p>
+          </div>
+        </div>
+        <div class="score-issues" id="scoreIssues"></div>
+        <button class="autofix-btn" id="autoFixBtn" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          Auto-Fix Link
+        </button>
+      </div>
     </section>
 
     <!-- Modules Container -->
@@ -206,12 +229,34 @@
             <button class="secondary-btn" id="shareBtn" disabled>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share
             </button>
+            <button class="secondary-btn" id="qrBtn" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg> QR Code
+            </button>
           </div>
         </div>
       </section>
 
     </div><!-- /modules-container -->
   </main>
+
+  <!-- QR Code Overlay Modal -->
+  <div class="qr-overlay" id="qrOverlay">
+    <div class="qr-modal">
+      <div class="qr-header">
+        <h2>Scan QR Code</h2>
+        <button class="close-btn" id="closeQrBtn" aria-label="Close QR modal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="qr-body">
+        <div class="qr-code-box" id="qrCodeBox">
+          <!-- QR image rendered dynamically -->
+        </div>
+        <p class="qr-url-preview" id="qrUrlPreview"></p>
+        <p class="qr-hint">Scan with your smartphone camera to open the safe URL</p>
+      </div>
+    </div>
+  </div>
 
   <!-- Settings Overlay -->
   <div class="settings-overlay" id="settingsOverlay">

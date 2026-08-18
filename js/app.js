@@ -1,4 +1,4 @@
-import { parseURL, isValidURL } from './utils/urlUtils.js';
+import { parseURL, isValidURL, findTrackingParams, isShortURL } from './utils/urlUtils.js';
 import { Storage } from './utils/storage.js';
 import { HistoryModule } from './modules/history.js';
 import { URLParserModule } from './modules/urlParser.js';
@@ -135,7 +135,38 @@ class URLCheckApp {
       });
     }
 
-    // History
+    // Sample URLs pills
+    document.querySelectorAll('.sample-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const sampleUrl = pill.dataset.url;
+        const input = document.getElementById('urlInput');
+        if (input) input.value = sampleUrl;
+        this.onUrlChange(sampleUrl);
+      });
+    });
+
+    // Auto-Fix button
+    const autoFixBtn = document.getElementById('autoFixBtn');
+    if (autoFixBtn) {
+      autoFixBtn.addEventListener('click', () => this.autoFixUrl());
+    }
+
+    // QR Code modal
+    const qrBtn = document.getElementById('qrBtn');
+    const closeQrBtn = document.getElementById('closeQrBtn');
+    const qrOverlay = document.getElementById('qrOverlay');
+
+    if (qrBtn) {
+      qrBtn.addEventListener('click', () => this.openQrModal());
+    }
+    if (closeQrBtn) {
+      closeQrBtn.addEventListener('click', () => this.closeQrModal());
+    }
+    if (qrOverlay) {
+      qrOverlay.addEventListener('click', (e) => {
+        if (e.target === qrOverlay) this.closeQrModal();
+      });
+    }
     if (undoBtn) undoBtn.addEventListener('click', () => this.undo());
     if (redoBtn) redoBtn.addEventListener('click', () => this.redo());
     if (clearHistoryBtn) clearHistoryBtn.addEventListener('click', () => this.clearChangeHistory());
@@ -243,20 +274,157 @@ class URLCheckApp {
     if (this.modules.urlCleaner) this.modules.urlCleaner.analyze(url);
     if (this.modules.patternChecker) this.modules.patternChecker.analyze(url);
     if (this.history) this.history.render();
+    this.calculateScore(url);
   }
 
   clearAllModules() {
     Object.values(this.modules).forEach(m => {
       if (m && m.clear) m.clear();
     });
+    const scoreCard = document.getElementById('heroScoreCard');
+    if (scoreCard) scoreCard.style.display = 'none';
   }
 
   updateButtonStates(enabled) {
-    const buttons = ['cleanBtn', 'unshortenBtn', 'checkStatusBtn', 'scanBtn', 'openBtn', 'copyBtn', 'shareBtn'];
+    const buttons = ['cleanBtn', 'unshortenBtn', 'checkStatusBtn', 'openBtn', 'copyBtn', 'shareBtn', 'qrBtn'];
     buttons.forEach(id => {
       const btn = document.getElementById(id);
       if (btn) btn.disabled = !enabled;
     });
+  }
+
+  calculateScore(url) {
+    const scoreCard = document.getElementById('heroScoreCard');
+    if (!url || !scoreCard) {
+      if (scoreCard) scoreCard.style.display = 'none';
+      return;
+    }
+
+    let score = 100;
+    const issues = [];
+    const parsed = parseURL(url);
+
+    if (!parsed) {
+      scoreCard.style.display = 'none';
+      return;
+    }
+
+    // Check 1: Tracking params
+    const trackerResult = findTrackingParams(url);
+    if (trackerResult && trackerResult.found.length > 0) {
+      const count = trackerResult.found.length;
+      const penalty = Math.min(count * 15, 45);
+      score -= penalty;
+      issues.push({ type: 'warning', text: `${count} tracker${count > 1 ? 's' : ''} detected (-${penalty}%)` });
+    }
+
+    // Check 2: Insecure HTTP
+    if (parsed.scheme === 'http') {
+      score -= 20;
+      issues.push({ type: 'danger', text: 'Insecure HTTP (-20%)' });
+    }
+
+    // Check 3: Short URL
+    if (isShortURL(url)) {
+      score -= 15;
+      issues.push({ type: 'info', text: 'Shortened Link (-15%)' });
+    }
+
+    score = Math.max(0, Math.min(100, score));
+    scoreCard.style.display = 'flex';
+
+    // Render Radial Score
+    const radial = document.getElementById('scoreRadial');
+    const valEl = document.getElementById('scoreValue');
+    const titleEl = document.getElementById('scoreTitle');
+    const subTitleEl = document.getElementById('scoreSubtitle');
+    const issuesEl = document.getElementById('scoreIssues');
+    const autoFixBtn = document.getElementById('autoFixBtn');
+
+    if (valEl) valEl.textContent = `${score}%`;
+
+    let color = 'var(--accent-green)';
+    if (score < 60) color = 'var(--accent-red)';
+    else if (score < 85) color = 'var(--accent-yellow)';
+
+    if (radial) {
+      radial.style.background = `conic-gradient(${color} calc(${score} * 1%), rgba(255,255,255,0.08) 0)`;
+      radial.style.boxShadow = `0 0 15px ${color}`;
+    }
+
+    if (titleEl) {
+      if (score === 100) titleEl.textContent = 'Clean & Secure';
+      else if (score >= 80) titleEl.textContent = 'Good — Minor Recommendations';
+      else if (score >= 50) titleEl.textContent = 'Warning — Issues Found';
+      else titleEl.textContent = 'Critical Risks Detected';
+    }
+
+    if (subTitleEl) {
+      subTitleEl.textContent = issues.length === 0 ? 'No tracking params or security risks found' : `${issues.length} item(s) need attention`;
+    }
+
+    if (issuesEl) {
+      issuesEl.innerHTML = issues.map(iss => `<span class="score-issue-tag ${iss.type}">${iss.text}</span>`).join('');
+    }
+
+    if (autoFixBtn) {
+      autoFixBtn.style.display = score < 100 ? 'inline-flex' : 'none';
+    }
+  }
+
+  async autoFixUrl() {
+    let fixedUrl = this.currentUrl;
+    let fixesCount = 0;
+
+    // 1. Strip tracking params
+    const trackerResult = findTrackingParams(fixedUrl);
+    if (trackerResult && trackerResult.cleanUrl !== fixedUrl) {
+      fixedUrl = trackerResult.cleanUrl;
+      fixesCount += trackerResult.found.length;
+    }
+
+    // 2. Upgrade http to https
+    if (fixedUrl.startsWith('http://')) {
+      fixedUrl = fixedUrl.replace(/^http:\/\//, 'https://');
+      fixesCount++;
+    }
+
+    // 3. Unshorten if short URL
+    if (isShortURL(fixedUrl) && this.modules.urlUnshortener) {
+      const res = await this.modules.urlUnshortener.unshorten(fixedUrl);
+      if (res && res.resolved && res.resolved !== fixedUrl) {
+        fixedUrl = res.resolved;
+        fixesCount++;
+      }
+    }
+
+    if (fixedUrl !== this.currentUrl) {
+      this.updateUrl(fixedUrl, 'Auto-Fix Link');
+      this.showToast('Link auto-fixed successfully!', 'success');
+    } else {
+      this.showToast('Link is already fully clean & secure!', 'info');
+    }
+  }
+
+  openQrModal() {
+    const overlay = document.getElementById('qrOverlay');
+    const box = document.getElementById('qrCodeBox');
+    const preview = document.getElementById('qrUrlPreview');
+    if (!this.currentUrl || !overlay) return;
+
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(this.currentUrl)}`;
+    if (box) {
+      box.innerHTML = `<img src="${qrUrl}" alt="QR Code" width="180" height="180">`;
+    }
+    if (preview) {
+      preview.textContent = this.currentUrl;
+    }
+    overlay.classList.add('active');
+  }
+
+  closeQrModal() {
+    const overlay = document.getElementById('qrOverlay');
+    if (overlay) overlay.classList.remove('active');
   }
 
   updateUrl(newUrl, reason) {
