@@ -1,167 +1,181 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cyber" data-mode="compact">
+<html lang="en" data-theme="cyber" data-mode="power">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="LinkGuard — Inspect, clean, and protect yourself from malicious URLs.">
-  <title>LinkGuard — URL Inspector & Privacy Tool</title>
+  <meta name="description" content="LinkGuard — Professional Cyber URL Inspector, Privacy Guard & Threat Intelligence Platform.">
+  <title>LinkGuard — Cyber Threat Inspector & URL Intelligence</title>
   
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <meta name="theme-color" content="#0a0e17">
+  <meta name="theme-color" content="#070a12">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
   <link rel="apple-touch-icon" href="assets/icon.svg">
   
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="mode-compact">
+<body>
   <!-- Header -->
   <header class="app-header">
-    <div class="header-content">
-      <div class="logo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
-        <h1>LinkGuard</h1>
-        <span class="tagline">Inspect · Clean · Protect</span>
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+        </div>
+        <div class="brand-text">
+          <h1>LinkGuard</h1>
+          <span class="brand-tag">Cyber Threat Intelligence v2.0</span>
+        </div>
       </div>
       
-      <div class="header-right">
-        <!-- Compact vs Power Mode Toggle -->
-        <div class="mode-toggle-group">
-          <button class="mode-btn active" id="compactModeBtn" title="Compact Mode (Essential View)">⚡ Compact</button>
-          <button class="mode-btn" id="powerModeBtn" title="Power Mode (Full Technical Inspection)">🔬 Power Mode</button>
+      <div class="header-actions">
+        <div class="view-mode-selector">
+          <button class="mode-pill active" id="compactModeBtn" data-mode="compact">⚡ Compact</button>
+          <button class="mode-pill" id="powerModeBtn" data-mode="power">🔬 Power Mode</button>
         </div>
 
-        <button class="settings-btn" id="settingsBtn" aria-label="Settings" title="Settings">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        <button class="settings-trigger" id="settingsBtn" title="Settings & Themes">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="app-main">
-    <!-- Navigation Tool Tabs Bar -->
-    <nav class="checkphish-nav-tabs" id="toolTabsBar">
-      <div class="nav-tab-item active" data-tab="all">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-        All Tools
-      </div>
-      <div class="nav-tab-item" data-tab="urlParser">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+  <!-- Main Container -->
+  <main class="app-layout">
+    <!-- Top Navigation Tool Tabs Bar -->
+    <nav class="tool-navigation-bar" id="toolTabsBar">
+      <button class="nav-tab-btn active" data-tab="all">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Overview (All)
+      </button>
+      <button class="nav-tab-btn" data-tab="urlParser">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
         URL Breakdown
-      </div>
-      <div class="nav-tab-item" data-tab="urlCleaner">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path></svg>
+      </button>
+      <button class="nav-tab-btn" data-tab="urlCleaner">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path></svg>
         URL Cleaner
-      </div>
-      <div class="nav-tab-item" data-tab="urlUnshortener">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+      </button>
+      <button class="nav-tab-btn" data-tab="urlUnshortener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
         URL Unshortener
-      </div>
-      <div class="nav-tab-item" data-tab="statusChecker">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+      </button>
+      <button class="nav-tab-btn" data-tab="statusChecker">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
         Status Checker
-      </div>
-      <div class="nav-tab-item" data-tab="patternChecker">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-        Pattern Checker
-      </div>
-      <div class="nav-tab-item" data-tab="history">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-        History
-      </div>
-      <div class="nav-tab-item" data-tab="openShare">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+      </button>
+      <button class="nav-tab-btn" data-tab="patternChecker">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+        Pattern Rules
+      </button>
+      <button class="nav-tab-btn" data-tab="history">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        Audit Log
+      </button>
+      <button class="nav-tab-btn" data-tab="openShare">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
         Open & Share
-      </div>
+      </button>
     </nav>
 
-    <!-- URL Input Section (CheckPhish Style) -->
-    <section class="url-input-section" id="urlInputSection">
-      <div class="checkphish-input-group">
-        <div class="input-wrapper checkphish-input-wrapper">
-          <input type="url" id="urlInput" placeholder="Scan or paste a URL..." autocomplete="off" spellcheck="false">
-          <div class="input-inner-actions">
-            <button class="paste-btn" id="pasteBtn" title="Paste from clipboard">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path></svg>
+    <!-- Command Hero Input Bar -->
+    <section class="command-hero-card">
+      <div class="hero-scanner-box">
+        <div class="scanner-input-container">
+          <div class="lock-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+          <input type="url" id="urlInput" placeholder="Enter or paste URL to scan (e.g., https://example.com/item?utm_source=fb)..." autocomplete="off" spellcheck="false">
+          <div class="input-quick-tools">
+            <button class="tool-action-btn" id="pasteBtn" title="Paste from clipboard">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path></svg>
             </button>
-            <button class="clear-btn" id="clearBtn" title="Clear">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <button class="tool-action-btn" id="clearBtn" title="Clear input">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
           </div>
+          <button class="primary-scan-btn" id="scanSubmitBtn">
+            <span>SCAN URL</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
         </div>
-        <button class="scan-submit-btn" id="scanSubmitBtn">Scan</button>
+        
+        <div class="sample-pills-wrapper">
+          <span class="sample-title">Try Demo:</span>
+          <button class="demo-pill" data-url="https://example.com/product?utm_source=facebook&utm_medium=cpc&fbclid=IwAR123456&ref=campaign_12">🛒 Tracking Link</button>
+          <button class="demo-pill" data-url="https://bit.ly/3xXyZ99">🔗 Short Link</button>
+          <button class="demo-pill" data-url="http://insecure-website.com/login?session_id=98765">⚠️ Insecure HTTP</button>
+        </div>
       </div>
 
-      <p class="checkphish-description">
-        LinkGuard is a real-time URL scanner providing deep threat intelligence, parameter cleaning, status checking, and redirect resolution.
-      </p>
-
-      <div class="sample-urls">
-        <span class="sample-label">Try sample:</span>
-        <button class="sample-pill" data-url="https://example.com/product?utm_source=facebook&utm_medium=cpc&fbclid=IwAR123456&ref=campaign_12">🛒 Tracking Link</button>
-        <button class="sample-pill" data-url="https://bit.ly/3xXyZ99">🔗 Short Link</button>
-        <button class="sample-pill" data-url="http://insecure-website.com/login?session_id=98765">⚠️ Insecure HTTP</button>
-      </div>
-      <div class="input-status" id="inputStatus"></div>
-
-      <!-- Hero Safety & Privacy Score Card -->
-      <div class="hero-score-card" id="heroScoreCard" style="display: none;">
-        <div class="score-radial-wrapper">
-          <div class="score-radial" id="scoreRadial">
-            <span class="score-value" id="scoreValue">100%</span>
+      <!-- Radar Security Dashboard -->
+      <div class="radar-score-dashboard" id="heroScoreCard" style="display: none;">
+        <div class="radar-gauge-section">
+          <div class="score-ring" id="scoreRadial">
+            <span class="score-number" id="scoreValue">100%</span>
+            <span class="score-label-mini">SECURE</span>
           </div>
-          <div class="score-meta">
-            <h3 class="score-title" id="scoreTitle">Clean & Secure</h3>
-            <p class="score-subtitle" id="scoreSubtitle">No privacy or security risks detected</p>
+          <div class="radar-summary">
+            <h3 class="radar-status-heading" id="scoreTitle">Clean & Secure Link</h3>
+            <p class="radar-status-sub" id="scoreSubtitle">No privacy tracking parameters or protocol vulnerabilities detected</p>
           </div>
         </div>
-        <div class="score-issues" id="scoreIssues"></div>
-        <button class="autofix-btn" id="autoFixBtn" style="display: none;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
-          Auto-Fix Link
+        
+        <div class="radar-issues-list" id="scoreIssues"></div>
+
+        <button class="super-autofix-btn" id="autoFixBtn" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          One-Click Auto-Fix Link
         </button>
       </div>
     </section>
 
-    <!-- Modules Container -->
-    <div class="modules-container" id="modulesContainer">
-      
+    <!-- Tool Panels Grid -->
+    <div class="panels-grid" id="modulesContainer">
       <!-- URL Parser Module -->
-      <section class="module-card" id="urlParserModule" data-module="urlParser">
-        <div class="module-header" data-toggle="urlParserBody">
-          <div class="module-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      <section class="tool-panel-card" id="urlParserModule" data-module="urlParser">
+        <div class="panel-header" data-toggle="urlParserBody">
+          <div class="panel-header-left">
+            <div class="panel-icon cyan">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <h2 class="panel-title">URL Breakdown</h2>
           </div>
-          <h2 class="module-title">URL Breakdown</h2>
-          <div class="module-status" id="urlParserStatus"></div>
-          <button class="module-toggle" aria-label="Toggle module">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
+          <div class="panel-header-right">
+            <div class="module-status" id="urlParserStatus"></div>
+            <button class="panel-collapse-trigger" aria-label="Toggle panel">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
         </div>
-        <div class="module-body" id="urlParserBody">
+        <div class="panel-body" id="urlParserBody">
           <div class="url-parts" id="urlParts"></div>
           <div class="url-visual" id="urlVisual"></div>
         </div>
       </section>
 
       <!-- URL Cleaner Module -->
-      <section class="module-card collapsed" id="urlCleanerModule" data-module="urlCleaner">
-        <div class="module-header" data-toggle="urlCleanerBody">
-          <div class="module-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path><path d="M5 6v4"></path><path d="M19 14v4"></path><path d="M10 2v2"></path><path d="M7 8H3"></path><path d="M21 16h-4"></path><path d="M11 3H9"></path></svg>
+      <section class="tool-panel-card" id="urlCleanerModule" data-module="urlCleaner">
+        <div class="panel-header" data-toggle="urlCleanerBody">
+          <div class="panel-header-left">
+            <div class="panel-icon violet">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path></svg>
+            </div>
+            <h2 class="panel-title">URL Cleaner & Tracker Stripper</h2>
           </div>
-          <h2 class="module-title">URL Cleaner</h2>
-          <div class="module-status" id="urlCleanerStatus"></div>
-          <button class="module-toggle" aria-label="Toggle module">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
+          <div class="panel-header-right">
+            <div class="module-status" id="urlCleanerStatus"></div>
+            <button class="panel-collapse-trigger" aria-label="Toggle panel">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
         </div>
-        <div class="module-body" id="urlCleanerBody">
+        <div class="panel-body" id="urlCleanerBody">
           <div class="cleaner-results" id="cleanerResults">
             <p class="module-placeholder">Tracking parameters will be identified here</p>
           </div>
@@ -170,18 +184,22 @@
       </section>
 
       <!-- URL Unshortener Module -->
-      <section class="module-card collapsed" id="urlUnshortenerModule" data-module="urlUnshortener">
-        <div class="module-header" data-toggle="urlUnshortenerBody">
-          <div class="module-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+      <section class="tool-panel-card" id="urlUnshortenerModule" data-module="urlUnshortener">
+        <div class="panel-header" data-toggle="urlUnshortenerBody">
+          <div class="panel-header-left">
+            <div class="panel-icon green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+            </div>
+            <h2 class="panel-title">URL Unshortener</h2>
           </div>
-          <h2 class="module-title">URL Unshortener</h2>
-          <div class="module-status" id="urlUnshortenerStatus"></div>
-          <button class="module-toggle" aria-label="Toggle module">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
+          <div class="panel-header-right">
+            <div class="module-status" id="urlUnshortenerStatus"></div>
+            <button class="panel-collapse-trigger" aria-label="Toggle panel">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
         </div>
-        <div class="module-body" id="urlUnshortenerBody">
+        <div class="panel-body" id="urlUnshortenerBody">
           <div class="unshortener-results" id="unshortenerResults">
             <p class="module-placeholder">Shortened URLs will be resolved here</p>
           </div>
@@ -190,18 +208,22 @@
       </section>
 
       <!-- Status Checker Module -->
-      <section class="module-card collapsed" id="statusCheckerModule" data-module="statusChecker">
-        <div class="module-header" data-toggle="statusCheckerBody">
-          <div class="module-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+      <section class="tool-panel-card" id="statusCheckerModule" data-module="statusChecker">
+        <div class="panel-header" data-toggle="statusCheckerBody">
+          <div class="panel-header-left">
+            <div class="panel-icon yellow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+            </div>
+            <h2 class="panel-title">Status & Health Checker</h2>
           </div>
-          <h2 class="module-title">Status Checker</h2>
-          <div class="module-status" id="statusCheckerStatus"></div>
-          <button class="module-toggle" aria-label="Toggle module">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
+          <div class="panel-header-right">
+            <div class="module-status" id="statusCheckerStatus"></div>
+            <button class="panel-collapse-trigger" aria-label="Toggle panel">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
         </div>
-        <div class="module-body" id="statusCheckerBody">
+        <div class="panel-body" id="statusCheckerBody">
           <div class="status-results" id="statusResults">
             <p class="module-placeholder">HTTP status will appear here</p>
           </div>
@@ -210,48 +232,56 @@
       </section>
 
       <!-- Pattern Checker Module -->
-      <section class="module-card collapsed" id="patternCheckerModule" data-module="patternChecker">
-        <div class="module-header" data-toggle="patternCheckerBody">
-          <div class="module-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line><line x1="12" y1="8" x2="12" y2="16"></line></svg>
+      <section class="tool-panel-card" id="patternCheckerModule" data-module="patternChecker">
+        <div class="panel-header" data-toggle="patternCheckerBody">
+          <div class="panel-header-left">
+            <div class="panel-icon cyan">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </div>
+            <h2 class="panel-title">Pattern & Regex Rules</h2>
           </div>
-          <h2 class="module-title">Pattern Checker</h2>
-          <div class="module-status" id="patternCheckerStatus"></div>
-          <button class="module-toggle" aria-label="Toggle module">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
+          <div class="panel-header-right">
+            <div class="module-status" id="patternCheckerStatus"></div>
+            <button class="panel-collapse-trigger" aria-label="Toggle panel">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
         </div>
-        <div class="module-body" id="patternCheckerBody">
+        <div class="panel-body" id="patternCheckerBody">
           <div class="pattern-results" id="patternResults">
             <p class="module-placeholder">Pattern matches will appear here</p>
           </div>
           <div class="pattern-rules" id="patternRules"></div>
-          <button class="small-btn" id="addPatternBtn">+ Add Rule</button>
+          <button class="small-btn" id="addPatternBtn">+ Add Custom Rule</button>
         </div>
       </section>
 
       <!-- History Module -->
-      <section class="module-card collapsed" id="historyModule" data-module="history">
-        <div class="module-header" data-toggle="historyBody">
-          <div class="module-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <section class="tool-panel-card" id="historyModule" data-module="history">
+        <div class="panel-header" data-toggle="historyBody">
+          <div class="panel-header-left">
+            <div class="panel-icon violet">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <h2 class="panel-title">Audit History & Diff Log</h2>
           </div>
-          <h2 class="module-title">History</h2>
-          <div class="module-status" id="historyStatus"></div>
-          <button class="module-toggle" aria-label="Toggle module">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
+          <div class="panel-header-right">
+            <div class="module-status" id="historyStatus"></div>
+            <button class="panel-collapse-trigger" aria-label="Toggle panel">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
         </div>
-        <div class="module-body" id="historyBody">
+        <div class="panel-body" id="historyBody">
           <div class="history-controls">
             <button class="icon-btn" id="undoBtn" disabled title="Undo">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"></path><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"></path><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path></svg>
             </button>
             <button class="icon-btn" id="redoBtn" disabled title="Redo">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"></path><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"></path><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"></path></svg>
             </button>
             <button class="icon-btn" id="clearHistoryBtn" title="Clear history">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
             </button>
           </div>
           <div class="history-log" id="historyLog">
@@ -261,17 +291,21 @@
       </section>
 
       <!-- Open & Share Module -->
-      <section class="module-card collapsed" id="openShareModule" data-module="openShare">
-        <div class="module-header" data-toggle="openShareBody">
-          <div class="module-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+      <section class="tool-panel-card" id="openShareModule" data-module="openShare">
+        <div class="panel-header" data-toggle="openShareBody">
+          <div class="panel-header-left">
+            <div class="panel-icon green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </div>
+            <h2 class="panel-title">Open & Share Safe URL</h2>
           </div>
-          <h2 class="module-title">Open & Share</h2>
-          <button class="module-toggle" aria-label="Toggle module">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
+          <div class="panel-header-right">
+            <button class="panel-collapse-trigger" aria-label="Toggle panel">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+          </div>
         </div>
-        <div class="module-body" id="openShareBody">
+        <div class="panel-body" id="openShareBody">
           <div class="action-buttons">
             <button class="primary-btn" id="openBtn" disabled>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Open in New Tab
@@ -285,15 +319,14 @@
           </div>
         </div>
       </section>
-
-    </div><!-- /modules-container -->
+    </div>
   </main>
 
   <!-- Settings Overlay -->
   <div class="settings-overlay" id="settingsOverlay">
     <div class="settings-panel" id="settingsPanel">
       <div class="settings-header">
-        <h2>Settings</h2>
+        <h2>Settings & Aesthetics</h2>
         <button class="close-btn" id="closeSettingsBtn" aria-label="Close settings">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
@@ -324,9 +357,7 @@
         <div class="settings-section">
           <h3>Modules</h3>
           <p class="settings-hint">Toggle modules on/off. Drag to reorder.</p>
-          <ul class="module-list" id="moduleList">
-            <!-- Populated by JS -->
-          </ul>
+          <ul class="module-list" id="moduleList"></ul>
         </div>
         <div class="settings-section">
           <h3>Data</h3>

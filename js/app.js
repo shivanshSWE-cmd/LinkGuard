@@ -35,17 +35,15 @@ class URLCheckApp {
   }
 
   initUI() {
-    // Set up module card collapse/expand toggles
-    // Set up all module cards to be collapsed by default except urlParser
-    // Add 'collapsed' class to all module-cards except urlParser
-    document.querySelectorAll('.module-card').forEach(card => {
+    // Set up tool panel collapse/expand toggles
+    document.querySelectorAll('.tool-panel-card').forEach(card => {
       if (card.id !== 'urlParserModule') {
         card.classList.add('collapsed');
       }
-      const header = card.querySelector('.module-header');
+      const header = card.querySelector('.panel-header');
       if (header) {
         header.addEventListener('click', (e) => {
-          if (e.target.closest('button:not(.module-toggle)')) return;
+          if (e.target.closest('button:not(.panel-collapse-trigger)')) return;
           card.classList.toggle('collapsed');
         });
       }
@@ -136,8 +134,8 @@ class URLCheckApp {
       });
     }
 
-    // Sample URLs pills
-    document.querySelectorAll('.sample-pill').forEach(pill => {
+    // Sample / Demo URLs pills
+    document.querySelectorAll('.sample-pill, .demo-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         const sampleUrl = pill.dataset.url;
         const input = document.getElementById('urlInput');
@@ -429,7 +427,7 @@ class URLCheckApp {
     const toolTabsBar = document.getElementById('toolTabsBar');
     if (toolTabsBar) {
       toolTabsBar.addEventListener('click', (e) => {
-        const item = e.target.closest('.nav-tab-item');
+        const item = e.target.closest('.nav-tab-btn, .nav-tab-item');
         if (!item) return;
         e.preventDefault();
         const target = item.dataset.tab;
@@ -438,7 +436,7 @@ class URLCheckApp {
     }
 
     // Default to active tab
-    const activeTab = document.querySelector('#toolTabsBar .nav-tab-item.active')?.dataset.tab || 'all';
+    const activeTab = document.querySelector('#toolTabsBar .active')?.dataset.tab || 'all';
     this.switchTab(activeTab);
   }
 
@@ -446,18 +444,18 @@ class URLCheckApp {
     if (!target) target = 'all';
     this.currentTab = target;
 
-    document.querySelectorAll('#toolTabsBar .nav-tab-item').forEach(t => {
+    document.querySelectorAll('#toolTabsBar .nav-tab-btn, #toolTabsBar .nav-tab-item').forEach(t => {
       t.classList.toggle('active', t.dataset.tab === target);
     });
 
-    const allCards = document.querySelectorAll('.module-card');
+    const allCards = document.querySelectorAll('.tool-panel-card, .module-card');
 
     allCards.forEach(card => {
       const modId = card.dataset.module;
       if (target === 'all' || modId === target) {
         card.style.setProperty('display', 'block', 'important');
         card.classList.remove('collapsed');
-        const body = card.querySelector('.module-body');
+        const body = card.querySelector('.panel-body, .module-body');
         if (body) body.style.setProperty('display', 'block', 'important');
       } else {
         card.style.setProperty('display', 'none', 'important');
