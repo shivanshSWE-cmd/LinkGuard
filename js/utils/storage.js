@@ -31,11 +31,11 @@ export const Storage = {
     const defaultSettings = {
       order: [
         'urlParser', 'urlCleaner', 'urlUnshortener', 'statusChecker',
-        'virusTotal', 'patternChecker', 'history', 'openShare'
+        'patternChecker', 'history', 'openShare'
       ],
       enabled: {
         urlParser: true, urlCleaner: true, urlUnshortener: true, statusChecker: true,
-        virusTotal: true, patternChecker: true, history: true, openShare: true
+        patternChecker: true, history: true, openShare: true
       }
     };
     return this.get('module_settings', defaultSettings);

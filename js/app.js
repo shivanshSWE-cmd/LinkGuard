@@ -5,7 +5,6 @@ import { URLParserModule } from './modules/urlParser.js';
 import { URLCleanerModule } from './modules/urlCleaner.js';
 import { URLUnshortenerModule } from './modules/urlUnshortener.js';
 import { StatusCheckerModule } from './modules/statusChecker.js';
-import { VirusTotalModule } from './modules/virusTotal.js';
 import { PatternCheckerModule } from './modules/patternChecker.js';
 
 class URLCheckApp {
@@ -30,7 +29,6 @@ class URLCheckApp {
       urlCleaner: new URLCleanerModule(),
       urlUnshortener: new URLUnshortenerModule(),
       statusChecker: new StatusCheckerModule(),
-      virusTotal: new VirusTotalModule(),
       patternChecker: new PatternCheckerModule(),
     };
   }
@@ -372,7 +370,6 @@ class URLCheckApp {
       urlCleaner: 'URL Cleaner',
       urlUnshortener: 'URL Unshortener',
       statusChecker: 'Status Checker',
-      virusTotal: 'VirusTotal Scanner',
       patternChecker: 'Pattern Checker',
       history: 'History',
       openShare: 'Open & Share'

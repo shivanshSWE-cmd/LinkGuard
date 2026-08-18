@@ -133,31 +133,6 @@
         </div>
       </section>
 
-      <!-- VirusTotal Scanner Module -->
-      <section class="module-card collapsed" id="virusTotalModule" data-module="virusTotal">
-        <div class="module-header" data-toggle="virusTotalBody">
-          <div class="module-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          </div>
-          <h2 class="module-title">VirusTotal Scanner</h2>
-          <div class="module-status" id="virusTotalStatus"></div>
-          <button class="module-toggle" aria-label="Toggle module">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-        </div>
-        <div class="module-body" id="virusTotalBody">
-          <div class="vt-api-section" id="vtApiSection">
-            <p class="module-note">Requires a free VirusTotal API key</p>
-            <div class="api-key-input">
-              <input type="password" id="vtApiKey" placeholder="Enter VirusTotal API key">
-              <button class="small-btn" id="saveVtKey">Save</button>
-            </div>
-          </div>
-          <div class="vt-results" id="vtResults"></div>
-          <button class="action-btn" id="scanBtn" disabled>Scan URL</button>
-        </div>
-      </section>
-
       <!-- Pattern Checker Module -->
       <section class="module-card collapsed" id="patternCheckerModule" data-module="patternChecker">
         <div class="module-header" data-toggle="patternCheckerBody">
@@ -256,13 +231,6 @@
           </ul>
         </div>
         <div class="settings-section">
-          <h3>VirusTotal API Key</h3>
-          <div class="api-key-input">
-            <input type="password" id="settingsVtApiKey" placeholder="Enter API key">
-            <button class="small-btn" id="settingsSaveVtKey">Save</button>
-          </div>
-        </div>
-        <div class="settings-section">
           <h3>Data</h3>
           <div class="settings-actions">
             <button class="small-btn" id="exportSettingsBtn">Export Settings</button>
@@ -291,7 +259,6 @@
   <script type="module" src="js/modules/urlCleaner.js"></script>
   <script type="module" src="js/modules/urlUnshortener.js"></script>
   <script type="module" src="js/modules/statusChecker.js"></script>
-  <script type="module" src="js/modules/virusTotal.js"></script>
   <script type="module" src="js/modules/patternChecker.js"></script>
   <script type="module" src="js/app.js"></script>
   <script>

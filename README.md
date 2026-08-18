@@ -41,7 +41,6 @@ LinkGuard is built with a modular design system allowing you to enable, disable,
 | **🧹 URL Cleaner** | Strips **50+ known tracking & referral parameters** (`utm_*`, `fbclid`, `gclid`, `msclkid`, `igshid`, `ref`, etc.) to preserve your privacy. |
 | **🔗 URL Unshortener** | Resolves destination URLs behind link shorteners (`bit.ly`, `t.co`, `tinyurl.com`, `is.gd`, `cutt.ly`, etc.) via CORS proxy routing. |
 | **📶 Status Checker** | Tests HTTP response codes (`200 OK`, `301/302 Redirects`, `404`, `500`), content size, type headers, and redirect destinations. |
-| **🛡️ VirusTotal Scanner** | Integrates with VirusTotal API v3 to scan links against security vendor databases with a dynamic threat severity meter. |
 | **⚡ Pattern Checker** | Evaluates user-defined regex rules (e.g. `^http://` $\rightarrow$ `https://`) and suggests instant changes with a single click. |
 | **⏳ Change History** | Full stack-based modification log with `Ctrl+Z` (Undo) and `Ctrl+Y` (Redo) support, displaying green/red diffs. |
 | **📤 Open & Share** | Open in new tab, copy clean URL, or share via the native Web Share API. |

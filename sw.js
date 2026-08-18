@@ -14,7 +14,6 @@ const ASSETS = [
   './js/modules/urlCleaner.js',
   './js/modules/urlUnshortener.js',
   './js/modules/statusChecker.js',
-  './js/modules/virusTotal.js',
   './js/modules/patternChecker.js'
 ];
 
