@@ -359,11 +359,30 @@ body::before {
   flex-direction: column;
 }
 
+.url-part-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.copy-part-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+.copy-part-btn:hover {
+  opacity: 1;
+}
+
 .url-part-label {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 0.25rem;
   opacity: 0.8;
 }
 

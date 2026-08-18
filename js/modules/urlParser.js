@@ -65,13 +65,28 @@ export class URLParserModule {
     }
     
     html += '</div>';
-    if (this.partsEl) this.partsEl.innerHTML = html;
+    if (this.partsEl) {
+      this.partsEl.innerHTML = html;
+      this.partsEl.querySelectorAll('.copy-part-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const val = btn.dataset.copyVal;
+          if (val && navigator.clipboard) {
+            navigator.clipboard.writeText(val);
+            if (window.urlCheckApp) window.urlCheckApp.showToast(`Copied: ${val}`, 'success');
+          }
+        });
+      });
+    }
   }
 
   createPartCard(label, value, colorClass) {
     return `
       <div class="url-part-card ${colorClass}">
-        <div class="url-part-label">${label}</div>
+        <div class="url-part-header">
+          <span class="url-part-label">${label}</span>
+          <button class="copy-part-btn" data-copy-val="${this.escapeHtml(value)}" title="Copy segment">📋</button>
+        </div>
         <div class="url-part-value">${this.escapeHtml(value)}</div>
       </div>
     `;
