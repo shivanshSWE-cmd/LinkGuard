@@ -258,6 +258,10 @@ class URLCheckApp {
       return;
     }
 
+    // Hide final results card while steps run
+    const scoreCard = document.getElementById('heroScoreCard');
+    if (scoreCard) scoreCard.style.display = 'none';
+
     const stepper = document.getElementById('pipelineStepper');
     if (stepper) stepper.style.display = 'flex';
 
@@ -285,8 +289,11 @@ class URLCheckApp {
     // Step 4: Safety & Threat Evaluation
     this.updateStepUI(4, 'active');
     if (this.history) this.history.render();
-    this.calculateScore(url, statusResult);
+    await new Promise(r => setTimeout(r, 60));
     this.updateStepUI(4, 'completed');
+
+    // SHOW FINAL RESULTS DASHBOARD ONLY AFTER ALL 4 STEPS COMPLETE!
+    this.calculateScore(url, statusResult);
   }
 
   updateStepUI(stepNum, status) {
