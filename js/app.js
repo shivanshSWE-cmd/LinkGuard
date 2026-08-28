@@ -252,13 +252,59 @@ class URLCheckApp {
     }
   }
 
-  processUrl(url) {
-    // Run all automatic modules
+  async processUrl(url) {
+    if (!url) {
+      this.clearAllModules();
+      return;
+    }
+
+    const stepper = document.getElementById('pipelineStepper');
+    if (stepper) stepper.style.display = 'flex';
+
+    // Step 1: Breakdown (URL Syntax)
+    this.updateStepUI(1, 'active');
     if (this.modules.urlParser) this.modules.urlParser.analyze(url);
+    await new Promise(r => setTimeout(r, 60));
+    this.updateStepUI(1, 'completed');
+
+    // Step 2: Analyze (Trackers, Shorteners, Rules)
+    this.updateStepUI(2, 'active');
     if (this.modules.urlCleaner) this.modules.urlCleaner.analyze(url);
     if (this.modules.patternChecker) this.modules.patternChecker.analyze(url);
+    await new Promise(r => setTimeout(r, 60));
+    this.updateStepUI(2, 'completed');
+
+    // Step 3: Existence Check (HTTP Status)
+    this.updateStepUI(3, 'active');
+    let statusResult = null;
+    if (this.modules.statusChecker) {
+      statusResult = await this.modules.statusChecker.check(url);
+    }
+    this.updateStepUI(3, 'completed');
+
+    // Step 4: Safety & Threat Evaluation
+    this.updateStepUI(4, 'active');
     if (this.history) this.history.render();
-    this.calculateScore(url);
+    this.calculateScore(url, statusResult);
+    this.updateStepUI(4, 'completed');
+  }
+
+  updateStepUI(stepNum, status) {
+    const item = document.getElementById(`step${stepNum}Item`);
+    if (!item) return;
+    if (status === 'active') {
+      item.classList.remove('completed');
+      item.classList.add('active');
+    } else if (status === 'completed') {
+      item.classList.remove('active');
+      item.classList.add('completed');
+      const badge = item.querySelector('.step-badge');
+      if (badge) badge.textContent = '✓';
+    } else {
+      item.classList.remove('active', 'completed');
+      const badge = item.querySelector('.step-badge');
+      if (badge) badge.textContent = stepNum.toString();
+    }
   }
 
   clearAllModules() {
@@ -267,6 +313,9 @@ class URLCheckApp {
     });
     const scoreCard = document.getElementById('heroScoreCard');
     if (scoreCard) scoreCard.style.display = 'none';
+    const stepper = document.getElementById('pipelineStepper');
+    if (stepper) stepper.style.display = 'none';
+    [1, 2, 3, 4].forEach(num => this.updateStepUI(num, 'reset'));
   }
 
   updateButtonStates(enabled) {
@@ -277,7 +326,7 @@ class URLCheckApp {
     });
   }
 
-  calculateScore(url) {
+  calculateScore(url, statusResult = null) {
     const scoreCard = document.getElementById('heroScoreCard');
     if (!url || !scoreCard) {
       if (scoreCard) scoreCard.style.display = 'none';
@@ -305,13 +354,26 @@ class URLCheckApp {
     // Check 2: Insecure HTTP
     if (parsed.scheme === 'http') {
       score -= 20;
-      issues.push({ type: 'danger', text: 'Insecure HTTP (-20%)' });
+      issues.push({ type: 'warning', text: 'Insecure HTTP (-20%)' });
     }
 
     // Check 3: Short URL
     if (isShortURL(url)) {
       score -= 15;
       issues.push({ type: 'info', text: 'Shortened Link (-15%)' });
+    }
+
+    // Check 4: Link Existence / Reachability
+    if (statusResult) {
+      if (statusResult.exists === false) {
+        score -= 40;
+        issues.push({ type: 'warning', text: `Unreachable / Dead Link (-40%)` });
+      } else if (statusResult.isRedirect) {
+        score -= 10;
+        issues.push({ type: 'info', text: `Link Redirects (${statusResult.statusCode}) (-10%)` });
+      } else {
+        issues.push({ type: 'info', text: `Link Verified Live (${statusResult.statusCode} OK)` });
+      }
     }
 
     score = Math.max(0, Math.min(100, score));
