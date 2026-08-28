@@ -17,6 +17,8 @@
   <link rel="apple-touch-icon" href="assets/icon.svg">
   
   <link rel="stylesheet" href="css/styles.css">
+  <!-- jsQR Library for Anti-Quishing Scanner -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 </head>
 <body>
   <!-- Header -->
@@ -92,6 +94,10 @@
           </div>
           <input type="url" id="urlInput" placeholder="Enter or paste URL to scan (e.g., https://example.com/item?utm_source=fb)..." autocomplete="off" spellcheck="false">
           <div class="input-quick-tools">
+            <button class="tool-action-btn qr-btn-highlight" id="qrScanBtn" title="Anti-Quishing: Upload, Drag & Drop or Scan QR Code">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="3" y="3" rx="2"/><rect width="4" height="4" x="7" y="7"/><path d="M17 7h.01"/><path d="M17 17h.01"/><path d="M7 17h.01"/></svg>
+              <span>QR Scan</span>
+            </button>
             <button class="tool-action-btn" id="pasteBtn" title="Paste from clipboard">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path></svg>
             </button>
@@ -405,6 +411,49 @@
             <input type="file" id="importFileInput" accept=".json" hidden>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anti-Quishing QR Scanner Modal -->
+  <div class="modal-overlay" id="qrScannerModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <span class="quishing-badge">🛡️ Anti-Quishing Protection</span>
+          <h3>Scan / Upload QR Code</h3>
+        </div>
+        <button class="modal-close-btn" id="closeQrModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-subtitle">Safely decode QR codes from images, camera feed, or drag & drop to prevent <strong>Quishing (QR Code Phishing)</strong> attacks.</p>
+        
+        <div class="qr-options-tabs">
+          <button class="qr-tab-btn active" id="qrUploadTabBtn">📁 File Upload & Drag-Drop</button>
+          <button class="qr-tab-btn" id="qrCameraTabBtn">📷 Live Camera Scanner</button>
+        </div>
+
+        <!-- Tab 1: Upload / Drag & Drop -->
+        <div class="qr-tab-pane active" id="qrUploadPane">
+          <div class="qr-drop-zone" id="qrDropZone">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <p>Drag & Drop any QR image here, or <strong>Click to Select File</strong></p>
+            <span class="drop-hint">Supports PNG, JPG, WEBP, GIF</span>
+            <input type="file" id="qrFileInput" accept="image/*" hidden>
+          </div>
+        </div>
+
+        <!-- Tab 2: Live Camera -->
+        <div class="qr-tab-pane" id="qrCameraPane" style="display: none;">
+          <div class="camera-viewport">
+            <video id="qrVideo" playsinline></video>
+            <div class="camera-frame-overlay"></div>
+          </div>
+          <button class="secondary-btn" id="stopCameraBtn" style="margin-top: 0.75rem; width: 100%;">Stop Camera Feed</button>
+        </div>
+
+        <canvas id="qrCanvas" style="display: none;"></canvas>
+        <div class="qr-scan-status" id="qrScanStatus"></div>
       </div>
     </div>
   </div>
