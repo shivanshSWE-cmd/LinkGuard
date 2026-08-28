@@ -17,6 +17,16 @@
 
 ---
 
+## ⚡ Sequential 4-Step Inspection Pipeline
+
+LinkGuard processes links through a 4-step pipeline:
+1. **Step 1: Link Breakdown**: Parse URL syntax, scheme (`https`), hostname, path, parameters, and fragment hash.
+2. **Step 2: Link Analysis**: Scan for 50+ privacy tracking parameters (`utm_*`, `fbclid`, `gclid`), resolve short links, and run custom regex rules.
+3. **Step 3: Reachability / Existence Check**: Send live HTTP pings to verify if the website is online (`200 OK`) or dead/unreachable (`404 Not Found`).
+4. **Step 4: Safety & Threat Rating**: Compute final 0–100% Privacy & Security Score and present 1-Click Auto-Fix options.
+
+---
+
 ## 🧐 What is LinkGuard?
 
 **LinkGuard** is an open-source, privacy-first web application designed to inspect, clean, unshorten, and analyze web links before you open them. LinkGuard acts as a security shield against tracking parameters, deceptive short links, malicious redirects, and phishing threats.
