@@ -467,10 +467,13 @@ class URLCheckApp {
     }
 
     if (titleEl) {
-      if (score === 100) titleEl.textContent = 'Clean & Secure';
-      else if (score >= 80) titleEl.textContent = 'Good — Minor Recommendations';
-      else if (score >= 50) titleEl.textContent = 'Warning — Issues Found';
-      else titleEl.textContent = 'Critical Risks Detected';
+      if (score >= 90) {
+        titleEl.innerHTML = '<span style="color: var(--risk-safe)">🟢 BENIGN</span> — Clean & Safe Target';
+      } else if (score >= 50) {
+        titleEl.innerHTML = '<span style="color: var(--risk-warning)">🟡 SUSPICIOUS</span> — Potential Threat Identified';
+      } else {
+        titleEl.innerHTML = '<span style="color: var(--risk-critical)">🔴 MALICIOUS</span> — Critical Security Risk';
+      }
     }
 
     if (subTitleEl) {
