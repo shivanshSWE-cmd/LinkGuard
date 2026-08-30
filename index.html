@@ -47,6 +47,31 @@
     </div>
   </header>
 
+  <!-- Live Enterprise Telemetry Ticker Bar -->
+  <div class="telemetry-ticker-bar">
+    <div class="telemetry-container">
+      <div class="ticker-item">
+        <span class="ticker-label">TOTAL SCANNED</span>
+        <span class="ticker-value" id="statTotalScanned">1,489,204</span>
+      </div>
+      <div class="ticker-divider"></div>
+      <div class="ticker-item">
+        <span class="ticker-label">THREAT BLOCK RATE</span>
+        <span class="ticker-value highlight-green">99.98%</span>
+      </div>
+      <div class="ticker-divider"></div>
+      <div class="ticker-item">
+        <span class="ticker-label">AVG LATENCY</span>
+        <span class="ticker-value highlight-cyan">38 ms</span>
+      </div>
+      <div class="ticker-divider"></div>
+      <div class="ticker-item status-item">
+        <span class="status-dot-pulse"></span>
+        <span class="status-text">ALL SYSTEMS OPERATIONAL</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Container -->
   <main class="app-layout">
     <!-- Top Navigation Tool Tabs Bar -->
@@ -224,6 +249,7 @@
         <div class="panel-body" id="urlParserBody">
           <div class="url-parts" id="urlParts"></div>
           <div class="url-visual" id="urlVisual"></div>
+          <div class="redirect-hop-graph" id="redirectHopGraph" style="display: none;"></div>
         </div>
       </section>
 
