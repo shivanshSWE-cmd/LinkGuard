@@ -533,6 +533,13 @@ class URLCheckApp {
         card.style.setProperty('display', 'none', 'important');
       }
     });
+
+    if (target !== 'all') {
+      const targetCard = document.querySelector(`[data-module="${target}"]`);
+      if (targetCard) {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
   }
 
   setMode(mode) {
