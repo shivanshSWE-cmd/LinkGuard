@@ -103,3 +103,21 @@ export function buildURLFromParts(parts) {
   if (parts.hash) urlStr += parts.hash;
   return urlStr;
 }
+
+export function defangURL(str) {
+  if (!str) return '';
+  return str
+    .replace(/^https:\/\//i, 'hxxps://')
+    .replace(/^http:\/\//i, 'hxxp://')
+    .replace(/\./g, '[.]');
+}
+
+export function detectTargetType(input) {
+  const clean = input.trim();
+  if (!clean) return 'URL';
+  if (/^[a-fA-F0-9]{32}$|^[a-fA-F0-9]{40}$|^[a-fA-F0-9]{64}$/.test(clean)) return 'HASH';
+  if (/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/.test(clean)) return 'IPV4';
+  if (/^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test(clean)) return 'IPV6';
+  if (/^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/.test(clean)) return 'DOMAIN';
+  return 'URL';
+}

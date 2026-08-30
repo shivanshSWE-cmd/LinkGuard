@@ -1,4 +1,4 @@
-import { parseURL, isValidURL, findTrackingParams, isShortURL } from './utils/urlUtils.js';
+import { parseURL, isValidURL, findTrackingParams, isShortURL, defangURL, detectTargetType } from './utils/urlUtils.js';
 import { Storage } from './utils/storage.js';
 import { HistoryModule } from './modules/history.js';
 import { URLParserModule } from './modules/urlParser.js';
@@ -200,19 +200,77 @@ class URLCheckApp {
         if (pasteBtn) pasteBtn.click();
       }
     });
+    // Analyst Action Bar
+    document.getElementById('exportStixBtn')?.addEventListener('click', () => this.exportSTIX());
+    document.getElementById('copyDefangedBtn')?.addEventListener('click', () => this.copyDefangedIoC());
 
     // Anti-Quishing QR Code Scanner
     this.initQrScanner();
   }
 
+  exportSTIX() {
+    if (!this.currentUrl) {
+      this.showToast('No active target URL to export', 'error');
+      return;
+    }
+
+    const parsed = parseURL(this.currentUrl);
+    const uuidStr = Math.random().toString(36).substring(2, 10);
+    const stixBundle = {
+      type: "bundle",
+      id: `bundle--${uuidStr}`,
+      spec_version: "2.1",
+      objects: [
+        {
+          type: "indicator",
+          id: `indicator--${uuidStr}`,
+          created: new Date().toISOString(),
+          modified: new Date().toISOString(),
+          name: `LinkGuard Threat IoC - ${parsed?.hostname || 'Target'}`,
+          description: `Threat artifact analyzed via LinkGuard SecOps Platform`,
+          pattern: `[url:value = '${this.currentUrl}']`,
+          pattern_type: "stix",
+          valid_from: new Date().toISOString(),
+          labels: ["malicious-activity", "url-threat"]
+        }
+      ]
+    };
+
+    const blob = new Blob([JSON.stringify(stixBundle, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `linkguard-stix-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    this.showToast('📄 Exported STIX 2.1 JSON Intelligence!', 'success');
+  }
+
+  copyDefangedIoC() {
+    if (!this.currentUrl) {
+      this.showToast('No active URL to defang', 'error');
+      return;
+    }
+    const defanged = defangURL(this.currentUrl);
+    navigator.clipboard.writeText(defanged).then(() => {
+      this.showToast(`📋 Copied Defanged IoC: ${defanged}`, 'success');
+    }).catch(() => {
+      this.showToast('Failed to copy defanged IoC', 'error');
+    });
+  }
+
   onUrlChange(url) {
-    const trimmed = url.trim();
-    // Auto-add protocol if missing
+    const trimmed = url ? url.trim() : '';
     let processedUrl = trimmed;
     if (trimmed && !trimmed.match(/^[a-zA-Z]+:\/\//)) {
       processedUrl = 'https://' + trimmed;
     }
-    
+
+    const targetBadge = document.getElementById('targetTypeBadge');
+    if (targetBadge) {
+      targetBadge.textContent = detectTargetType(trimmed);
+    }
+
     const valid = isValidURL(processedUrl);
     const statusEl = document.getElementById('inputStatus');
     
