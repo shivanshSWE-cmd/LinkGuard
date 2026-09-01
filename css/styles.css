@@ -18,7 +18,8 @@
   --accent-red: #FF3366;
   --accent-yellow: #FFB020;
   --gradient-accent: linear-gradient(135deg, #00D8F6, #8B5CF6);
-  --gradient-btn: linear-gradient(135deg, #00D8F6 0%, #7C3AED 100%);
+  --gradient-btn: linear-gradient(135deg, #00D8F6 0%, #7C3AED 50%, #00F0FF 100%);
+  --gradient-btn-hover: linear-gradient(135deg, #00F0FF 0%, #8B5CF6 50%, #00D8F6 100%);
   --glass-bg: rgba(24, 31, 46, 0.85);
   --glass-border: #222D42;
   --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
@@ -156,29 +157,34 @@ body::before {
 
 .view-mode-selector {
   display: flex;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.55);
   border: 1px solid var(--border-card);
-  padding: 0.25rem;
+  padding: 0.3rem;
   border-radius: 99px;
 }
 
 .mode-pill {
   background: none;
-  border: none;
-  color: var(--text-muted);
+  border: 1px solid transparent;
+  color: var(--text-secondary);
   font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0.35rem 0.85rem;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
   border-radius: 99px;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
+.mode-pill:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
 .mode-pill.active {
-  background: rgba(255, 255, 255, 0.09);
+  background: rgba(0, 216, 246, 0.15);
   color: var(--telemetry-cyan);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  border-color: rgba(0, 216, 246, 0.4);
+  box-shadow: 0 2px 14px rgba(0, 216, 246, 0.25);
 }
 
 .settings-trigger {
@@ -197,7 +203,8 @@ body::before {
 
 .settings-trigger:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 216, 246, 0.12);
+  border-color: rgba(0, 216, 246, 0.35);
   transform: rotate(45deg);
 }
 
@@ -302,17 +309,18 @@ body::before {
 .nav-tab-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.6rem;
   font-size: 0.86rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  padding: 0.6rem 1.1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  padding: 0.65rem 1.2rem;
   cursor: pointer;
   white-space: nowrap;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-card);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .nav-tab-btn * {
@@ -321,16 +329,17 @@ body::before {
 
 .nav-tab-btn:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 .nav-tab-btn.active {
   color: var(--telemetry-cyan);
-  background: rgba(0, 216, 246, 0.08);
-  border-color: var(--border-active);
-  box-shadow: 0 4px 20px rgba(0, 216, 246, 0.2);
+  background: linear-gradient(135deg, rgba(0, 216, 246, 0.18), rgba(124, 58, 237, 0.15));
+  border: 1px solid var(--border-active);
+  box-shadow: 0 4px 22px rgba(0, 216, 246, 0.35);
 }
 
 /* Command Hero Card */
@@ -397,16 +406,16 @@ body::before {
 .input-quick-tools {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   margin-right: 0.75rem;
 }
 
 .tool-action-btn {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-card);
   color: var(--text-secondary);
-  padding: 0.5rem;
-  border-radius: var(--radius-sm);
+  padding: 0.55rem;
+  border-radius: 10px;
   cursor: pointer;
   transition: all var(--transition-fast);
   display: flex;
@@ -417,40 +426,53 @@ body::before {
 .tool-action-btn:hover {
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
 }
 
 .tool-action-btn.qr-btn-highlight {
-  background: rgba(0, 216, 246, 0.1);
-  border-color: rgba(0, 216, 246, 0.35);
+  background: linear-gradient(135deg, rgba(0, 216, 246, 0.18), rgba(124, 58, 237, 0.18));
+  border: 1px solid rgba(0, 216, 246, 0.45);
   color: var(--telemetry-cyan);
-  padding: 0.5rem 0.85rem;
-  gap: 0.4rem;
-  font-weight: 600;
-  font-size: 0.82rem;
+  padding: 0.55rem 0.95rem;
+  gap: 0.45rem;
+  font-weight: 700;
+  font-size: 0.84rem;
+  box-shadow: 0 4px 15px rgba(0, 216, 246, 0.2);
+}
+
+.tool-action-btn.qr-btn-highlight:hover {
+  background: linear-gradient(135deg, rgba(0, 216, 246, 0.3), rgba(124, 58, 237, 0.3));
+  box-shadow: 0 6px 22px rgba(0, 216, 246, 0.4);
+  transform: translateY(-2px);
 }
 
 .primary-scan-btn {
   background: var(--gradient-btn);
   color: #ffffff;
-  border: none;
-  padding: 0.85rem 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.85rem 1.85rem;
   font-size: 0.95rem;
   font-weight: 800;
   border-radius: var(--radius-md);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
   transition: all var(--transition-fast);
-  box-shadow: 0 4px 20px rgba(0, 216, 246, 0.35);
-  letter-spacing: 0.04em;
+  box-shadow: 0 4px 25px rgba(0, 216, 246, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.05em;
   white-space: nowrap;
 }
 
 .primary-scan-btn:hover {
-  opacity: 0.94;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 28px rgba(0, 216, 246, 0.5);
+  background: var(--gradient-btn-hover);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(0, 216, 246, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.primary-scan-btn:active {
+  transform: translateY(0) scale(0.99);
 }
 
 /* Scan Modifiers Bar */
@@ -485,7 +507,7 @@ body::before {
 .sample-pills-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
   flex-wrap: wrap;
 }
 
@@ -496,22 +518,24 @@ body::before {
 }
 
 .demo-pill {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-card);
   color: var(--text-secondary);
-  font-size: 0.8rem;
-  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 99px;
   cursor: pointer;
   transition: all var(--transition-fast);
-  font-weight: 500;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .demo-pill:hover {
-  background: rgba(0, 216, 246, 0.1);
-  border-color: rgba(0, 216, 246, 0.35);
+  background: rgba(0, 216, 246, 0.12);
+  border-color: rgba(0, 216, 246, 0.4);
   color: var(--telemetry-cyan);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 216, 246, 0.25);
 }
 
 /* 4-Step Pipeline Stepper */
@@ -730,8 +754,8 @@ body::before {
 .super-autofix-btn {
   background: var(--gradient-btn);
   color: #ffffff;
-  border: none;
-  padding: 0.8rem 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.8rem 1.65rem;
   font-size: 0.92rem;
   font-weight: 800;
   border-radius: var(--radius-md);
@@ -739,31 +763,35 @@ body::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  box-shadow: 0 4px 20px rgba(0, 216, 246, 0.35);
+  gap: 0.65rem;
+  box-shadow: 0 4px 22px rgba(0, 216, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transition: all var(--transition-fast);
 }
 
 .super-autofix-btn:hover {
-  opacity: 0.94;
-  transform: translateY(-1px);
+  background: var(--gradient-btn-hover);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(0, 216, 246, 0.6);
 }
 
 .analyst-btn {
   font-size: 0.85rem;
   padding: 0.65rem 1.25rem;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-card);
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: 700;
   transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .analyst-btn:hover {
-  background: rgba(0, 216, 246, 0.1);
-  border-color: rgba(0, 216, 246, 0.3);
+  background: rgba(0, 216, 246, 0.12);
+  border-color: rgba(0, 216, 246, 0.4);
   color: var(--telemetry-cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(0, 216, 246, 0.25);
 }
 
 /* Tool Panels Grid */
@@ -1057,18 +1085,21 @@ body::before {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-card);
   color: var(--text-primary);
-  padding: 0.6rem 1.1rem;
+  padding: 0.65rem 1.25rem;
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .small-btn:hover {
-  background: rgba(0, 216, 246, 0.1);
-  border-color: rgba(0, 216, 246, 0.3);
+  background: rgba(0, 216, 246, 0.12);
+  border-color: rgba(0, 216, 246, 0.35);
   color: var(--telemetry-cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 216, 246, 0.25);
 }
 
 .settings-panel a, footer a {
