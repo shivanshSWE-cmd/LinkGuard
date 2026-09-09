@@ -124,39 +124,6 @@ html[data-theme="dark-gold"] .app-header {
   background: rgba(26, 20, 18, 0.95);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .header-container {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
-  }
-  
-  .header-actions {
-    justify-content: space-between;
-  }
-
-  .scanner-hero-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
-  }
-
-  .qr-btn-standalone {
-    justify-content: center;
-    width: 100%;
-  }
-
-  .primary-scan-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .app-layout {
-    padding: 1rem 0.75rem;
-  }
-}
-
 .header-container {
   max-width: 1150px;
   margin: 0 auto;
@@ -409,15 +376,7 @@ html[data-theme="dark-gold"] .app-header {
   gap: 1.25rem;
 }
 
-.scanner-hero-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-}
-
 .scanner-input-container {
-  flex: 1;
   display: flex;
   align-items: center;
   background: var(--bg-secondary);
@@ -426,30 +385,6 @@ html[data-theme="dark-gold"] .app-header {
   padding: 0.4rem 0.5rem 0.4rem 1.25rem;
   box-shadow: inset 0 2px 4px rgba(44, 30, 22, 0.04);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.qr-btn-standalone {
-  background: linear-gradient(135deg, rgba(197, 160, 89, 0.15), rgba(140, 109, 55, 0.15));
-  border: 1px solid rgba(197, 160, 89, 0.45);
-  color: var(--text-primary);
-  padding: 0.85rem 1.25rem;
-  border-radius: var(--radius-md);
-  gap: 0.5rem;
-  font-weight: 700;
-  font-size: 0.88rem;
-  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.15);
-  white-space: nowrap;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  transition: all var(--transition-fast);
-}
-
-.qr-btn-standalone:hover {
-  background: linear-gradient(135deg, rgba(197, 160, 89, 0.28), rgba(140, 109, 55, 0.28));
-  border-color: var(--accent-gold);
-  box-shadow: 0 6px 22px rgba(197, 160, 89, 0.3);
-  transform: translateY(-2px);
 }
 
 .scanner-input-container:focus-within {
@@ -1355,17 +1290,6 @@ html[data-theme="dark-gold"] .app-header {
   text-align: center;
 }
 
-/* Footer */
-.app-footer {
-  text-align: center;
-  padding: 2.5rem 1.5rem 3rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  width: 100%;
-  margin-top: 1rem;
-}
-
 /* Toast Notifications */
 .toast-container {
   position: fixed;
@@ -1392,4 +1316,37 @@ html[data-theme="dark-gold"] .app-header {
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* App Footer */
+.app-footer {
+  width: 100%;
+  max-width: 1150px;
+  margin: 3.5rem auto 2rem auto;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border-top: 1px solid var(--border-card);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-footer p {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+  margin: 0 auto;
+}
+
+.app-footer a {
+  color: var(--accent-gold);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.app-footer a:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
 }
