@@ -1,4 +1,4 @@
-const CACHE_NAME = 'linkguard-v20';
+const CACHE_NAME = 'linkguard-v21';
 const ASSETS = [
   './',
   './index.html',
