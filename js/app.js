@@ -203,9 +203,31 @@ class URLCheckApp {
     // Analyst Action Bar
     document.getElementById('exportStixBtn')?.addEventListener('click', () => this.exportSTIX());
     document.getElementById('copyDefangedBtn')?.addEventListener('click', () => this.copyDefangedIoC());
+    document.getElementById('toggleDeepDetailsBtn')?.addEventListener('click', () => this.toggleDeepDetails());
 
     // Anti-Quishing QR Code Scanner
     this.initQrScanner();
+  }
+
+  toggleDeepDetails() {
+    const allCards = document.querySelectorAll('.tool-panel-card, .module-card');
+    const isCurrentlyHidden = Array.from(allCards).every(card => card.style.display === 'none' || card.style.display === '');
+    const btn = document.getElementById('toggleDeepDetailsBtn');
+
+    if (isCurrentlyHidden) {
+      allCards.forEach(card => {
+        card.style.setProperty('display', 'block', 'important');
+        card.classList.remove('collapsed');
+      });
+      if (btn) btn.textContent = '🔼 Hide Technical Payload';
+      const container = document.getElementById('modulesContainer');
+      if (container) container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      allCards.forEach(card => {
+        card.style.setProperty('display', 'none', 'important');
+      });
+      if (btn) btn.textContent = '🔬 Deep Technical Payload';
+    }
   }
 
   exportSTIX() {
@@ -621,20 +643,27 @@ class URLCheckApp {
     });
 
     const allCards = document.querySelectorAll('.tool-panel-card, .module-card');
+    const toggleBtn = document.getElementById('toggleDeepDetailsBtn');
 
-    allCards.forEach(card => {
-      const modId = card.dataset.module;
-      if (target === 'all' || modId === target) {
-        card.style.setProperty('display', 'block', 'important');
-        card.classList.remove('collapsed');
-        const body = card.querySelector('.panel-body, .module-body');
-        if (body) body.style.setProperty('display', 'block', 'important');
-      } else {
+    if (target === 'all') {
+      // Hide detailed module cards by default in overview until user specifically selects a module or expands details
+      allCards.forEach(card => {
         card.style.setProperty('display', 'none', 'important');
-      }
-    });
+      });
+      if (toggleBtn) toggleBtn.textContent = '🔬 Deep Technical Payload';
+    } else {
+      allCards.forEach(card => {
+        const modId = card.dataset.module;
+        if (modId === target) {
+          card.style.setProperty('display', 'block', 'important');
+          card.classList.remove('collapsed');
+          const body = card.querySelector('.panel-body, .module-body');
+          if (body) body.style.setProperty('display', 'block', 'important');
+        } else {
+          card.style.setProperty('display', 'none', 'important');
+        }
+      });
 
-    if (target !== 'all') {
       const targetCard = document.querySelector(`[data-module="${target}"]`);
       if (targetCard) {
         targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
